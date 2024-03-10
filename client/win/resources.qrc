@@ -1,0 +1,12 @@
+<RCC>
+  <qresource prefix="images">
+    <file>resources/images/background.png</file>
+    <file>resources/images/register.jpg</file>
+  </qresource>
+  <qresource prefix="icons">
+    <file>resources/icons/person.png</file>
+    <file>resources/icons/setting.png</file>
+    <file>resources/icons/LexiLab.png</file>
+    <file>resources/icons/close.png</file>
+  </qresource>
+</RCC>

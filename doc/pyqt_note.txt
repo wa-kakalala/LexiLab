@@ -1,0 +1,9 @@
+#隐藏边框
+MainWindow.setWindowFlags(QtCore.Qt.FramelessWindowHint)
+MainWindow.setAttribute(QtCore.Qt.WA_TranslucentBackground)
+
+# 增加阴影
+self.login_pic.setGraphicsEffect( QtWidgets.QGraphicsDropShadowEffect(blurRadius=25,xOffset=0,yOffset=0))
+self.login_items.setGraphicsEffect( QtWidgets.QGraphicsDropShadowEffect(blurRadius=25,xOffset=0,yOffset=0))
+self.login_confirm_btn.setGraphicsEffect( QtWidgets.QGraphicsDropShadowEffect(blurRadius=25,xOffset=0,yOffset=0))
+self.register_confirm_btn.setGraphicsEffect( QtWidgets.QGraphicsDropShadowEffect(blurRadius=25,xOffset=0,yOffset=0))
