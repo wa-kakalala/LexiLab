@@ -216,7 +216,8 @@ border: none;</string>
      </property>
      <property name="styleSheet">
       <string notr="true">border:1px solid rgb(0,0,0);
-border-radius:8px;</string>
+border-radius:8px;
+padding-left:3px;</string>
      </property>
      <property name="placeholderText">
       <string>UserName</string>
@@ -261,7 +262,8 @@ border-radius:8px;</string>
      </property>
      <property name="styleSheet">
       <string notr="true">border:1px solid rgb(0,0,0);
-border-radius:8px;</string>
+border-radius:8px;
+padding-left:3px;</string>
      </property>
      <property name="echoMode">
       <enum>QLineEdit::Password</enum>
@@ -453,7 +455,8 @@ border-radius:8px;</string>
      </property>
      <property name="styleSheet">
       <string notr="true">border:1px solid rgb(0,0,0);
-border-radius:8px;</string>
+border-radius:8px;
+padding-left:3px;</string>
      </property>
      <property name="placeholderText">
       <string>Confirm PassWord</string>
@@ -498,7 +501,8 @@ border-radius:8px;</string>
      </property>
      <property name="styleSheet">
       <string notr="true">border:1px solid rgb(0,0,0);
-border-radius:8px;</string>
+border-radius:8px;
+padding-left:3px;</string>
      </property>
      <property name="placeholderText">
       <string>PassWord</string>
@@ -543,6 +547,7 @@ border-radius:8px;</string>
      </property>
      <property name="styleSheet">
       <string notr="true">border:1px solid rgb(0,0,0);
+padding-left:3px;
 border-radius:8px;</string>
      </property>
      <property name="placeholderText">
@@ -588,7 +593,8 @@ border-radius:8px;</string>
      </property>
      <property name="styleSheet">
       <string notr="true">border:1px solid rgb(0,0,0);
-border-radius:8px;</string>
+border-radius:8px;
+padding-left:3px;</string>
      </property>
      <property name="placeholderText">
       <string>Email</string>

@@ -115,7 +115,8 @@ class Ui_LoginWindow(object):
         font.setKerning(False)
         self.username_input.setFont(font)
         self.username_input.setStyleSheet("border:1px solid rgb(0,0,0);\n"
-"border-radius:8px;")
+"border-radius:8px;\n"
+"padding-left:3px;")
         self.username_input.setObjectName("username_input")
         self.password_input = QtWidgets.QLineEdit(self.login_page)
         self.password_input.setEnabled(True)
@@ -133,7 +134,8 @@ class Ui_LoginWindow(object):
         font.setKerning(False)
         self.password_input.setFont(font)
         self.password_input.setStyleSheet("border:1px solid rgb(0,0,0);\n"
-"border-radius:8px;")
+"border-radius:8px;\n"
+"padding-left:3px;")
         self.password_input.setEchoMode(QtWidgets.QLineEdit.Password)
         self.password_input.setObjectName("password_input")
         self.remember_box = QtWidgets.QCheckBox(self.login_page)
@@ -212,7 +214,8 @@ class Ui_LoginWindow(object):
         font.setKerning(True)
         self.register_pwd_input_confirm.setFont(font)
         self.register_pwd_input_confirm.setStyleSheet("border:1px solid rgb(0,0,0);\n"
-"border-radius:8px;")
+"border-radius:8px;\n"
+"padding-left:3px;")
         self.register_pwd_input_confirm.setObjectName("register_pwd_input_confirm")
         self.register_pwd_input = QtWidgets.QLineEdit(self.register_page)
         self.register_pwd_input.setEnabled(True)
@@ -230,7 +233,8 @@ class Ui_LoginWindow(object):
         font.setKerning(False)
         self.register_pwd_input.setFont(font)
         self.register_pwd_input.setStyleSheet("border:1px solid rgb(0,0,0);\n"
-"border-radius:8px;")
+"border-radius:8px;\n"
+"padding-left:3px;")
         self.register_pwd_input.setObjectName("register_pwd_input")
         self.register_username_input = QtWidgets.QLineEdit(self.register_page)
         self.register_username_input.setEnabled(True)
@@ -248,6 +252,7 @@ class Ui_LoginWindow(object):
         font.setKerning(False)
         self.register_username_input.setFont(font)
         self.register_username_input.setStyleSheet("border:1px solid rgb(0,0,0);\n"
+"padding-left:3px;\n"
 "border-radius:8px;")
         self.register_username_input.setObjectName("register_username_input")
         self.register_email_input = QtWidgets.QLineEdit(self.register_page)
@@ -266,7 +271,8 @@ class Ui_LoginWindow(object):
         font.setKerning(True)
         self.register_email_input.setFont(font)
         self.register_email_input.setStyleSheet("border:1px solid rgb(0,0,0);\n"
-"border-radius:8px;")
+"border-radius:8px;\n"
+"padding-left:3px;")
         self.register_email_input.setObjectName("register_email_input")
         self.register_info = QtWidgets.QLabel(self.register_page)
         self.register_info.setGeometry(QtCore.QRect(0, 310, 371, 16))
@@ -289,7 +295,6 @@ class Ui_LoginWindow(object):
         self.login_items.setGraphicsEffect( QtWidgets.QGraphicsDropShadowEffect(blurRadius=25,xOffset=0,yOffset=0))
         self.login_confirm_btn.setGraphicsEffect( QtWidgets.QGraphicsDropShadowEffect(blurRadius=25,xOffset=0,yOffset=0))
         self.register_confirm_btn.setGraphicsEffect( QtWidgets.QGraphicsDropShadowEffect(blurRadius=25,xOffset=0,yOffset=0))
-
         MainWindow.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(MainWindow)

@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>840</width>
-    <height>530</height>
+    <height>531</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -49,7 +49,7 @@ border-top-left-radius:20px;</string>
      <property name="frameShadow">
       <enum>QFrame::Raised</enum>
      </property>
-     <widget class="QLabel" name="label">
+     <widget class="QLabel" name="logo">
       <property name="geometry">
        <rect>
         <x>20</x>
@@ -65,7 +65,7 @@ border-top-left-radius:20px;</string>
        <string/>
       </property>
      </widget>
-     <widget class="QLabel" name="label_2">
+     <widget class="QLabel" name="caption">
       <property name="geometry">
        <rect>
         <x>70</x>
@@ -87,7 +87,7 @@ border-top-left-radius:20px;</string>
        <string>LexiLab</string>
       </property>
      </widget>
-     <widget class="QPushButton" name="pushButton_3">
+     <widget class="QPushButton" name="close_btn">
       <property name="geometry">
        <rect>
         <x>790</x>
@@ -98,6 +98,38 @@ border-top-left-radius:20px;</string>
       </property>
       <property name="styleSheet">
        <string notr="true">border-image: url(:/icons/resources/icons/close.png);</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="logout">
+      <property name="geometry">
+       <rect>
+        <x>730</x>
+        <y>10</y>
+        <width>23</width>
+        <height>23</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">border-image: url(:/icons/resources/icons/logout.png);</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="minimise">
+      <property name="geometry">
+       <rect>
+        <x>760</x>
+        <y>10</y>
+        <width>23</width>
+        <height>23</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">border-image: url(:/icons/resources/icons/minimise.png);</string>
       </property>
       <property name="text">
        <string/>
@@ -114,8 +146,11 @@ border-top-left-radius:20px;</string>
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">background-color: rgb(170, 170, 255);
-border-bottom-left-radius:20px;</string>
+      <string notr="true">background-color: rgba(255, 248, 240,128);
+border-bottom-left-radius:20px;
+border-top-right-radius:20px;
+border-bottom-right-radius:20px;
+border-top-left-radius:20px;</string>
      </property>
      <property name="frameShape">
       <enum>QFrame::StyledPanel</enum>
@@ -123,7 +158,7 @@ border-bottom-left-radius:20px;</string>
      <property name="frameShadow">
       <enum>QFrame::Raised</enum>
      </property>
-     <widget class="QPushButton" name="pushButton">
+     <widget class="QPushButton" name="person_btn">
       <property name="geometry">
        <rect>
         <x>10</x>
@@ -134,13 +169,14 @@ border-bottom-left-radius:20px;</string>
       </property>
       <property name="styleSheet">
        <string notr="true">border:none;
-border-image: url(:/icons/resources/icons/person.png);</string>
+border-image: url(:/icons/resources/icons/person.png);
+background-color: rgba(255, 255, 255,0);</string>
       </property>
       <property name="text">
        <string/>
       </property>
      </widget>
-     <widget class="QPushButton" name="pushButton_2">
+     <widget class="QPushButton" name="setting_btn">
       <property name="geometry">
        <rect>
         <x>10</x>
@@ -151,25 +187,31 @@ border-image: url(:/icons/resources/icons/person.png);</string>
       </property>
       <property name="styleSheet">
        <string notr="true">border:none;
-border-image: url(:/icons/resources/icons/setting.png);</string>
+border-image: url(:/icons/resources/icons/setting.png);
+background-color: rgba(255, 255, 255,0);</string>
       </property>
       <property name="text">
        <string/>
       </property>
      </widget>
+     <zorder>setting_btn</zorder>
+     <zorder>person_btn</zorder>
     </widget>
     <widget class="QFrame" name="frame_4">
      <property name="geometry">
       <rect>
-       <x>50</x>
+       <x>0</x>
        <y>40</y>
-       <width>771</width>
+       <width>821</width>
        <height>471</height>
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">background-color: rgb(247, 244, 235);
-border-bottom-right-radius :20px;</string>
+      <string notr="true">
+border-image: url(:/images/resources/images/bg.jpg);
+border-bottom-right-radius :20px;
+border-bottom-left-radius :20px;
+</string>
      </property>
      <property name="frameShape">
       <enum>QFrame::StyledPanel</enum>
@@ -177,27 +219,97 @@ border-bottom-right-radius :20px;</string>
      <property name="frameShadow">
       <enum>QFrame::Raised</enum>
      </property>
-     <widget class="QFrame" name="frame_5">
+     <widget class="QTextEdit" name="term_input">
       <property name="geometry">
        <rect>
-        <x>640</x>
-        <y>280</y>
-        <width>131</width>
-        <height>191</height>
+        <x>120</x>
+        <y>40</y>
+        <width>631</width>
+        <height>121</height>
+       </rect>
+      </property>
+      <property name="autoFillBackground">
+       <bool>false</bool>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">border-image: none;
+background-color: rgba(183, 183, 183,160);
+border-top-left-radius:20px;
+border-top-right-radius:20px;
+color: rgba(255, 255, 255,255);
+font: 16pt &quot;Times New Roman&quot;;
+
+padding-top: 5px;
+padding-right: 5px;
+padding-bottom: 5px;
+padding-left: 5px;
+</string>
+      </property>
+      <property name="inputMethodHints">
+       <set>Qt::ImhMultiLine</set>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Plain</enum>
+      </property>
+      <property name="acceptRichText">
+       <bool>false</bool>
+      </property>
+      <property name="placeholderText">
+       <string>Input the term ...</string>
+      </property>
+     </widget>
+     <widget class="QTextEdit" name="explain_input">
+      <property name="geometry">
+       <rect>
+        <x>120</x>
+        <y>190</y>
+        <width>631</width>
+        <height>181</height>
        </rect>
       </property>
       <property name="styleSheet">
-       <string notr="true">border-image:url(:/images/resources/images/background.png);
-border-bottom-right-radius :20px;</string>
+       <string notr="true">border-image: none;
+background-color: rgba(183, 183, 183,160);
+border-top-left-radius:20px;
+border-top-right-radius:20px;
+color: rgba(255, 255, 255,255);
+font: 16pt &quot;Times New Roman&quot;;
+
+padding-top: 5px;
+padding-right: 5px;
+padding-bottom: 5px;
+padding-left: 5px;</string>
       </property>
-      <property name="frameShape">
-       <enum>QFrame::StyledPanel</enum>
+      <property name="tabChangesFocus">
+       <bool>true</bool>
       </property>
-      <property name="frameShadow">
-       <enum>QFrame::Raised</enum>
+      <property name="acceptRichText">
+       <bool>false</bool>
+      </property>
+      <property name="placeholderText">
+       <string>Input the explanation of the term ...</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="commit_btn">
+      <property name="geometry">
+       <rect>
+        <x>720</x>
+        <y>340</y>
+        <width>101</width>
+        <height>131</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">border-image: url(:/images/resources/images/background.png);</string>
+      </property>
+      <property name="text">
+       <string/>
       </property>
      </widget>
     </widget>
+    <zorder>frame_2</zorder>
+    <zorder>frame_4</zorder>
+    <zorder>frame_3</zorder>
    </widget>
   </widget>
  </widget>
@@ -206,7 +318,7 @@ border-bottom-right-radius :20px;</string>
  </resources>
  <connections>
   <connection>
-   <sender>pushButton_3</sender>
+   <sender>close_btn</sender>
    <signal>clicked()</signal>
    <receiver>MainWindow</receiver>
    <slot>close()</slot>
@@ -218,6 +330,22 @@ border-bottom-right-radius :20px;</string>
     <hint type="destinationlabel">
      <x>870</x>
      <y>41</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>minimise</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>showMinimized()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>788</x>
+     <y>25</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>843</x>
+     <y>26</y>
     </hint>
    </hints>
   </connection>

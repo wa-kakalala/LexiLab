@@ -9,12 +9,12 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-import resources_rc
+
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(843, 530)
+        MainWindow.resize(840, 531)
 
         #隐藏边框
         MainWindow.setWindowFlags(QtCore.Qt.FramelessWindowHint)
@@ -35,66 +35,219 @@ class Ui_MainWindow(object):
         self.frame_2.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.frame_2.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame_2.setObjectName("frame_2")
-        self.label = QtWidgets.QLabel(self.frame_2)
-        self.label.setGeometry(QtCore.QRect(20, 5, 41, 31))
-        self.label.setStyleSheet("image: url(:/icons/resources/icons/LexiLab.png);")
-        self.label.setText("")
-        self.label.setObjectName("label")
-        self.label_2 = QtWidgets.QLabel(self.frame_2)
-        self.label_2.setGeometry(QtCore.QRect(70, 12, 61, 16))
+        self.logo = QtWidgets.QLabel(self.frame_2)
+        self.logo.setGeometry(QtCore.QRect(20, 5, 41, 31))
+        self.logo.setStyleSheet("image: url(:/icons/resources/icons/LexiLab.png);")
+        self.logo.setText("")
+        self.logo.setObjectName("logo")
+        self.caption = QtWidgets.QLabel(self.frame_2)
+        self.caption.setGeometry(QtCore.QRect(70, 12, 61, 16))
         font = QtGui.QFont()
         font.setFamily("Times New Roman")
         font.setPointSize(12)
         font.setBold(True)
         font.setItalic(True)
         font.setWeight(75)
-        self.label_2.setFont(font)
-        self.label_2.setObjectName("label_2")
-        self.pushButton_3 = QtWidgets.QPushButton(self.frame_2)
-        self.pushButton_3.setGeometry(QtCore.QRect(790, 10, 21, 21))
-        self.pushButton_3.setStyleSheet("border-image: url(:/icons/resources/icons/close.png);")
-        self.pushButton_3.setText("")
-        self.pushButton_3.setObjectName("pushButton_3")
+        self.caption.setFont(font)
+        self.caption.setObjectName("caption")
+        self.close_btn = QtWidgets.QPushButton(self.frame_2)
+        self.close_btn.setGeometry(QtCore.QRect(790, 10, 20, 20))
+        self.close_btn.setStyleSheet("border-image: url(:/icons/resources/icons/close.png);")
+        self.close_btn.setText("")
+        self.close_btn.setObjectName("close_btn")
+        self.logout = QtWidgets.QPushButton(self.frame_2)
+        self.logout.setGeometry(QtCore.QRect(730, 10, 23, 23))
+        self.logout.setStyleSheet("border-image: url(:/icons/resources/icons/logout.png);")
+        self.logout.setText("")
+        self.logout.setObjectName("logout")
+        self.minimise = QtWidgets.QPushButton(self.frame_2)
+        self.minimise.setGeometry(QtCore.QRect(760, 10, 23, 23))
+        self.minimise.setStyleSheet("border-image: url(:/icons/resources/icons/minimise.png);")
+        self.minimise.setText("")
+        self.minimise.setObjectName("minimise")
         self.frame_3 = QtWidgets.QFrame(self.frame)
         self.frame_3.setGeometry(QtCore.QRect(-1, 39, 51, 471))
-        self.frame_3.setStyleSheet("background-color: rgb(170, 170, 255);\n"
-"border-bottom-left-radius:20px;")
+        self.frame_3.setStyleSheet("background-color: rgba(255, 248, 240,128);\n"
+"border-bottom-left-radius:20px;\n"
+"border-top-right-radius:20px;\n"
+"border-bottom-right-radius:20px;\n"
+"border-top-left-radius:20px;")
         self.frame_3.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.frame_3.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame_3.setObjectName("frame_3")
-        self.pushButton = QtWidgets.QPushButton(self.frame_3)
-        self.pushButton.setGeometry(QtCore.QRect(10, 370, 32, 32))
-        self.pushButton.setStyleSheet("border:none;\n"
-"border-image: url(:/icons/resources/icons/person.png);")
-        self.pushButton.setText("")
-        self.pushButton.setObjectName("pushButton")
-        self.pushButton_2 = QtWidgets.QPushButton(self.frame_3)
-        self.pushButton_2.setGeometry(QtCore.QRect(10, 420, 32, 32))
-        self.pushButton_2.setStyleSheet("border:none;\n"
-"border-image: url(:/icons/resources/icons/setting.png);")
-        self.pushButton_2.setText("")
-        self.pushButton_2.setObjectName("pushButton_2")
+        self.person_btn = QtWidgets.QPushButton(self.frame_3)
+        self.person_btn.setGeometry(QtCore.QRect(10, 370, 32, 32))
+        self.person_btn.setStyleSheet("border:none;\n"
+"border-image: url(:/icons/resources/icons/person.png);\n"
+"background-color: rgba(255, 255, 255,0);")
+        self.person_btn.setText("")
+        self.person_btn.setObjectName("person_btn")
+        self.setting_btn = QtWidgets.QPushButton(self.frame_3)
+        self.setting_btn.setGeometry(QtCore.QRect(10, 420, 32, 32))
+        self.setting_btn.setStyleSheet("border:none;\n"
+"border-image: url(:/icons/resources/icons/setting.png);\n"
+"background-color: rgba(255, 255, 255,0);")
+        self.setting_btn.setText("")
+        self.setting_btn.setObjectName("setting_btn")
+        self.setting_btn.raise_()
+        self.person_btn.raise_()
         self.frame_4 = QtWidgets.QFrame(self.frame)
-        self.frame_4.setGeometry(QtCore.QRect(50, 40, 771, 471))
-        self.frame_4.setStyleSheet("background-color: rgb(247, 244, 235);\n"
-"border-bottom-right-radius :20px;")
+        self.frame_4.setGeometry(QtCore.QRect(0, 40, 821, 471))
+        self.frame_4.setStyleSheet("\n"
+"border-image: url(:/images/resources/images/bg.jpg);\n"
+"border-bottom-right-radius :20px;\n"
+"border-bottom-left-radius :20px;\n"
+"")
         self.frame_4.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.frame_4.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame_4.setObjectName("frame_4")
-        self.frame_5 = QtWidgets.QFrame(self.frame_4)
-        self.frame_5.setGeometry(QtCore.QRect(640, 280, 131, 191))
-        self.frame_5.setStyleSheet("border-image:url(:/images/resources/images/background.png);\n"
-"border-bottom-right-radius :20px;")
-        self.frame_5.setFrameShape(QtWidgets.QFrame.StyledPanel)
-        self.frame_5.setFrameShadow(QtWidgets.QFrame.Raised)
-        self.frame_5.setObjectName("frame_5")
+        self.term_input = QtWidgets.QTextEdit(self.frame_4)
+        self.term_input.setGeometry(QtCore.QRect(120, 40, 631, 121))
+        self.term_input.setAutoFillBackground(False)
+        self.term_input.setStyleSheet("border-image: none;\n"
+"background-color: rgba(183, 183, 183,160);\n"
+"border-top-left-radius:20px;\n"
+"border-top-right-radius:20px;\n"
+"color: rgba(255, 255, 255,255);\n"
+"font: 16pt \"Times New Roman\";\n"
+"\n"
+"padding-top: 5px;\n"
+"padding-right: 5px;\n"
+"padding-bottom: 5px;\n"
+"padding-left: 5px;\n"
+"")
+        self.term_input.setInputMethodHints(QtCore.Qt.ImhMultiLine)
+        self.term_input.setFrameShadow(QtWidgets.QFrame.Plain)
+        self.term_input.setAcceptRichText(False)
+        self.term_input.setObjectName("term_input")
+        self.explain_input = QtWidgets.QTextEdit(self.frame_4)
+        self.explain_input.setGeometry(QtCore.QRect(120, 190, 631, 181))
+        self.explain_input.setStyleSheet("border-image: none;\n"
+"background-color: rgba(183, 183, 183,160);\n"
+"border-top-left-radius:20px;\n"
+"border-top-right-radius:20px;\n"
+"color: rgba(255, 255, 255,255);\n"
+"font: 16pt \"Times New Roman\";\n"
+"\n"
+"padding-top: 5px;\n"
+"padding-right: 5px;\n"
+"padding-bottom: 5px;\n"
+"padding-left: 5px;")
+        self.explain_input.setTabChangesFocus(True)
+        self.explain_input.setAcceptRichText(False)
+        self.explain_input.setObjectName("explain_input")
+        self.commit_btn = QtWidgets.QPushButton(self.frame_4)
+        self.commit_btn.setGeometry(QtCore.QRect(720, 340, 101, 131))
+        self.commit_btn.setStyleSheet("border-image: url(:/images/resources/images/background.png);")
+        self.commit_btn.setText("")
+        self.commit_btn.setObjectName("commit_btn")
+        self.frame_2.raise_()
+        self.frame_4.raise_()
+        self.frame_3.raise_()
+
+        self.commit_btn.setGraphicsEffect( QtWidgets.QGraphicsDropShadowEffect(blurRadius=25,xOffset=0,yOffset=0))
+
+        # 改变默认滚动条
+        self.term_input_bar = QtWidgets.QScrollBar()
+        self.term_input_bar.setStyleSheet("""
+            QScrollBar:vertical {
+                border-width: 0px;
+                border: none;
+                background:rgba(64, 65, 79, 0);
+                width:12px;
+                margin: 0px 0px 0px 0px;
+            }
+            QScrollBar::handle:vertical {
+                background: qlineargradient(x1:0, y1:0, x2:1, y2:0,
+                stop: 0 #afc779, stop: 0.5 #afc779, stop:1 #afc779);
+                min-height: 20px;
+                max-height: 20px;
+                margin: 0 0px 0 0px;
+                border-radius: 6px;
+            }
+            QScrollBar::add-line:vertical {
+                background: qlineargradient(x1:0, y1:0, x2:1, y2:0,
+                stop: 0 rgba(64, 65, 79, 0), stop: 0.5 rgba(64, 65, 79, 0),  stop:1 rgba(64, 65, 79, 0));
+                height: 0px;
+                border: none;
+                subcontrol-position: bottom;
+                subcontrol-origin: margin;
+            }
+            QScrollBar::sub-line:vertical {
+                background: qlineargradient(x1:0, y1:0, x2:1, y2:0,
+                stop: 0  rgba(64, 65, 79, 0), stop: 0.5 rgba(64, 65, 79, 0),  stop:1 rgba(64, 65, 79, 0));
+                height: 0 px;
+                border: none;
+                subcontrol-position: top;
+                subcontrol-origin: margin;
+            }
+            QScrollBar::sub-page:vertical {
+            background: rgba(64, 65, 79, 0);
+            }
+
+            QScrollBar::add-page:vertical {
+            background: rgba(64, 65, 79, 0);
+            }
+        """)
+
+        self.term_input.setVerticalScrollBar(self.term_input_bar)
+
+        # 改变默认滚动条
+        self.explain_input_bar = QtWidgets.QScrollBar()
+        self.explain_input_bar.setStyleSheet("""
+            QScrollBar:vertical {
+                border-width: 0px;
+                border: none;
+                background:rgba(64, 65, 79, 0);
+                width:12px;
+                margin: 0px 0px 0px 0px;
+            }
+            QScrollBar::handle:vertical {
+                background: qlineargradient(x1:0, y1:0, x2:1, y2:0,
+                stop: 0 #afc779, stop: 0.5 #afc779, stop:1 #afc779);
+                min-height: 20px;
+                max-height: 20px;
+                margin: 0 0px 0 0px;
+                border-radius: 6px;
+            }
+            QScrollBar::add-line:vertical {
+                background: qlineargradient(x1:0, y1:0, x2:1, y2:0,
+                stop: 0 rgba(64, 65, 79, 0), stop: 0.5 rgba(64, 65, 79, 0),  stop:1 rgba(64, 65, 79, 0));
+                height: 0px;
+                border: none;
+                subcontrol-position: bottom;
+                subcontrol-origin: margin;
+            }
+            QScrollBar::sub-line:vertical {
+                background: qlineargradient(x1:0, y1:0, x2:1, y2:0,
+                stop: 0  rgba(64, 65, 79, 0), stop: 0.5 rgba(64, 65, 79, 0),  stop:1 rgba(64, 65, 79, 0));
+                height: 0 px;
+                border: none;
+                subcontrol-position: top;
+                subcontrol-origin: margin;
+            }
+            QScrollBar::sub-page:vertical {
+            background: rgba(64, 65, 79, 0);
+            }
+
+            QScrollBar::add-page:vertical {
+            background: rgba(64, 65, 79, 0);
+            }
+        """)
+
+        self.explain_input.setVerticalScrollBar(self.explain_input_bar)
+
         MainWindow.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(MainWindow)
-        self.pushButton_3.clicked.connect(MainWindow.close) # type: ignore
+        self.close_btn.clicked.connect(MainWindow.close) # type: ignore
+        self.minimise.clicked.connect(MainWindow.showMinimized) # type: ignore
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
-        self.label_2.setText(_translate("MainWindow", "LexiLab"))
+        self.caption.setText(_translate("MainWindow", "LexiLab"))
+        self.term_input.setPlaceholderText(_translate("MainWindow", "Input the term ..."))
+        self.explain_input.setPlaceholderText(_translate("MainWindow", "Input the explanation of the term ..."))
+import resources_rc

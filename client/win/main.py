@@ -1,8 +1,9 @@
 from PyQt5.QtWidgets import QApplication,QMainWindow
 from PyQt5.QtCore import Qt,QPoint
-from PyQt5.QtGui  import QMouseEvent
+from PyQt5.QtGui  import QMouseEvent,QIcon
 import loginpage 
 import mainpage
+from sqlproc import SqlProc
 import sys
 
 class LoginWindow (QMainWindow):
@@ -70,9 +71,14 @@ class MainWindow (QMainWindow):
     _isTracking = False
     def __init__(self):
         super().__init__()
+
+        self.sqlor = SqlProc("./db/test.db","test")
+
         self.ui = mainpage.Ui_MainWindow()
         self.ui.setupUi(self)
 
+        self.ui.logout.clicked.connect(self.logout_btn_proc)
+        self.ui.commit_btn.clicked.connect(self.commit_btn_proc)
         self.show()
 
     ############### 重写移动事件 Begin ################
@@ -91,6 +97,18 @@ class MainWindow (QMainWindow):
             self._startPos = None
             self._endPos = None
     ############### 重写移动事件  End  ################
+            
+    def logout_btn_proc(self):
+        self.close()
+        self.win = LoginWindow()
+        self.sqlor.exit()
+
+    def commit_btn_proc(self):
+        print(self.ui.term_input.toPlainText())
+        print(self.ui.explain_input.toPlainText())
+        self.sqlor.insert(["term","explain" ],[self.ui.term_input.toPlainText(),self.ui.explain_input.toPlainText()])
+        
+        print("commit")
 
 
 if __name__ == "__main__":

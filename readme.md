@@ -8,4 +8,4 @@ Lexicon Lab
 
 ## Main Page
 
-![image-20240310125425223](pic/image-20240310125425223.png)
+![image-20240312012042108](pic/image-20240312012042108.png)
