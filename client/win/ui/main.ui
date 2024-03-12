@@ -234,8 +234,7 @@ border-bottom-left-radius :20px;
       <property name="styleSheet">
        <string notr="true">border-image: none;
 background-color: rgba(183, 183, 183,160);
-border-top-left-radius:20px;
-border-top-right-radius:20px;
+border-radius: 10px;
 color: rgba(255, 255, 255,255);
 font: 16pt &quot;Times New Roman&quot;;
 
@@ -270,8 +269,7 @@ padding-left: 5px;
       <property name="styleSheet">
        <string notr="true">border-image: none;
 background-color: rgba(183, 183, 183,160);
-border-top-left-radius:20px;
-border-top-right-radius:20px;
+border-radius: 10px;
 color: rgba(255, 255, 255,255);
 font: 16pt &quot;Times New Roman&quot;;
 
