@@ -1,6 +1,6 @@
 import sqlite3
 
-class SqlProc:
+class SQLClass:
     def __init__(self,dbpath,tablename):
         self.dbpath=dbpath
         self.tablename = tablename
@@ -19,7 +19,7 @@ class SqlProc:
             value = value+'"' +str(j) + '"'+","
         value = value[:-1]
         item = "INSERT INTO "+self.tablename+" ( "+  key+  " ) " + "VALUES (" + value +")"
-        print(item)
+        # print(item)
         self.c.execute(item)
         self.conn.commit()
 
@@ -30,9 +30,28 @@ class SqlProc:
         explain_list= self.c.execute(item)
         print(explain_list)
 
+    def find_user_by_username(self,username):
+        self.c = self.conn.cursor()
+        item = "SELECT * FROM " + self.tablename + " WHERE username = " + "'" + username + "'"
+        # print(item)
+        self.c.execute(item)
+        userinfo = self.c.fetchall()
+        print(userinfo)
+        return userinfo
     def exit(self):
         self.c.close()
         self.conn.close()
+
+    def update_by_username(self,username,fileds=[],values=[]):
+        update_content = ' '
+        for idx in range(len(fileds)-1):
+            update_content += fileds[idx] + '=' +'"' + values[idx] + '",'
+        update_content += fileds[-1] + '=' +'"' + values[-1] + '" '
+
+        item = "UPDATE " + self.tablename + " set " + update_content + " WHERE username = " + "'" + username + "'"
+        # print(item)
+        self.c.execute(item)
+        self.conn.commit()
 
 
 
