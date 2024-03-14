@@ -3,15 +3,17 @@ from PyQt5.QtCore import Qt,QPoint
 from PyQt5.QtGui  import QMouseEvent,QIcon
 import loginpage 
 import mainpage
-from sqlproc import SQLClass
+from sqlproc import SQLClass,create_lexilab_db
 import sys
 import hashlib
 import re
 import datetime
+from threading import Timer
 
 global_username = ''
 global_password = ''
 global_remember = False
+global_lexilab_db = None
 
 class LoginWindow (QMainWindow):
     _startPos = None
@@ -101,6 +103,8 @@ class LoginWindow (QMainWindow):
             ]
         )
         self.ui.register_info.setText("Congratulations, you have successfully registered ! ")
+
+        create_lexilab_db(self.ui.register_username_input.text())
         
     ############### 重写移动事件 Begin ################
     def mouseMoveEvent(self, e: QMouseEvent):  
@@ -121,7 +125,7 @@ class LoginWindow (QMainWindow):
 
     # 登录
     def login_confirm_proc(self):
-        global global_username,global_password,global_remember
+        global global_username,global_password,global_remember,global_lexilab_db
         if self.ui.username_input.text() == '':
             self.ui.login_info.setText("the UserName is None ! ")
             return 
@@ -149,6 +153,9 @@ class LoginWindow (QMainWindow):
                 global_remember = self.ui.remember_box.isChecked()
                 self.userinfo_db.update_by_username(self.ui.username_input.text(),["last"],[datetime.datetime.now().strftime('%y%m%d%H%M')])
                 self.close()
+
+                self.lexilab_db = SQLClass('./db/%s_lexilab.db'%(self.ui.username_input.text()),'lexilab')
+                global_lexilab_db = self.lexilab_db
                 self.win = MainWindow(self.userinfo_db,self.lexilab_db)
             else:
                 self.ui.login_info.setText("UserName is not match with PassWord ! ")
@@ -158,6 +165,8 @@ class MainWindow (QMainWindow):
     _startPos = None
     _endPos = None
     _isTracking = False
+    _tips = None
+    _tipsIdx = 0
     def __init__(self,userinfo_db,lexilab_db):
         super().__init__()
 
@@ -170,6 +179,8 @@ class MainWindow (QMainWindow):
         self.ui.logout.clicked.connect(self.logout_btn_proc)
         self.ui.commit_btn.clicked.connect(self.commit_btn_proc)
         self.show()
+
+        self.show_tips("欢迎来到LexiLab系统, 请开始记录内容吧!")
 
     ############### 重写移动事件 Begin ################
     def mouseMoveEvent(self, e: QMouseEvent):  
@@ -189,13 +200,50 @@ class MainWindow (QMainWindow):
     ############### 重写移动事件  End  ################
             
     def logout_btn_proc(self):
+        global global_lexilab_db
+        self.lexilab_db.exit()
+        global_lexilab_db = None
         self.close()
         self.win = LoginWindow(self.userinfo_db,self.lexilab_db)
+    
+    def timer_callback(self):
+        if self._tipsIdx < len(self._tips):
+            self.ui.tips.setText(self._tips[0:self._tipsIdx+1])
+            self._tipsIdx += 1
+            timer = Timer(0.2, self.timer_callback)
+            timer.start()
+        else:
+            self._tips = ''
+            self._tipsIdx = 0
+            self.ui.commit_btn.setEnabled(True)
+
+    def show_tips(self,tips):
+        self._tips = tips
+        self._tipsIdx = 0
+        self.ui.commit_btn.setEnabled(False)
+        timer = Timer(0.1, self.timer_callback)
+        timer.start()
 
     def commit_btn_proc(self):
-        print(self.ui.term_input.toPlainText())
-        print(self.ui.explain_input.toPlainText())
-        # self.sqlor.insert(["term","explain" ],[self.ui.term_input.toPlainText(),self.ui.explain_input.toPlainText()])
+        if self.ui.term_input.toPlainText() == '':
+            self.show_tips("输入术语栏不可以为空哦!")
+            return 
+        elif self.ui.explain_input.toPlainText() == '':
+            self.show_tips("输入释义栏不可以为空哦!")
+            return 
+        lexicon = self.lexilab_db.find_lexi_by_term(self.ui.term_input.toPlainText())
+        if not lexicon:
+            self.lexilab_db.insert(
+                ["term","explain","date","time"], 
+                [ 
+                    self.ui.term_input.toPlainText(), 
+                    self.ui.explain_input.toPlainText(),
+                    datetime.datetime.now().strftime('%y%m%d'), 
+                    datetime.datetime.now().strftime('%H%M')
+                ]
+            )
+        else:
+            print(lexicon)
         
         print("commit")
 
@@ -208,4 +256,7 @@ if __name__ == "__main__":
     exit_code = app.exec_()
     
     userinfo_db.exit()
+    if not global_lexilab_db:
+        global_lexilab_db.exit()
+
     sys.exit(exit_code)

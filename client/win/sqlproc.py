@@ -36,8 +36,18 @@ class SQLClass:
         # print(item)
         self.c.execute(item)
         userinfo = self.c.fetchall()
-        print(userinfo)
+        # print(userinfo)
         return userinfo
+    
+    def find_lexi_by_term(self,termname):
+        self.c = self.conn.cursor()
+        item = "SELECT * FROM " + self.tablename + " WHERE term = " + "'" + termname + "'"
+        print(item)
+        self.c.execute(item)
+        lexicon = self.c.fetchall()
+        # print(lexicon)
+        return lexicon
+
     def exit(self):
         self.c.close()
         self.conn.close()
@@ -52,6 +62,21 @@ class SQLClass:
         # print(item)
         self.c.execute(item)
         self.conn.commit()
+
+def create_lexilab_db(username):
+    conn = sqlite3.connect('./db/'+ username + '_lexilab.db')
+    # print("open database successfully!")
+    c = conn.cursor()
+    c.execute('''CREATE TABLE lexilab
+    (
+            term           TEXT    NOT NULL,
+            explain        TEXT    NOT NULL,
+            date           TEXT    NOT NULL,
+            time           TEXT     
+    );''')
+    # print("create table successfully")
+    conn.commit()
+    conn.close()
 
 
 

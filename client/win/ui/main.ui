@@ -6,9 +6,14 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>840</width>
-    <height>531</height>
+    <width>1019</width>
+    <height>787</height>
    </rect>
+  </property>
+  <property name="font">
+   <font>
+    <family>华文隶书</family>
+   </font>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
@@ -223,7 +228,7 @@ border-bottom-left-radius :20px;
       <property name="geometry">
        <rect>
         <x>120</x>
-        <y>40</y>
+        <y>20</y>
         <width>631</width>
         <height>121</height>
        </rect>
@@ -261,7 +266,7 @@ padding-left: 5px;
       <property name="geometry">
        <rect>
         <x>120</x>
-        <y>190</y>
+        <y>180</y>
         <width>631</width>
         <height>181</height>
        </rect>
@@ -303,6 +308,64 @@ padding-left: 5px;</string>
       <property name="text">
        <string/>
       </property>
+     </widget>
+     <widget class="QFrame" name="frame_5">
+      <property name="geometry">
+       <rect>
+        <x>260</x>
+        <y>400</y>
+        <width>461</width>
+        <height>61</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">border-image: none;
+background-color: rgba(183, 183, 183,0);
+</string>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Raised</enum>
+      </property>
+      <widget class="QLabel" name="tips">
+       <property name="geometry">
+        <rect>
+         <x>20</x>
+         <y>0</y>
+         <width>441</width>
+         <height>51</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <family>隶书</family>
+         <pointsize>16</pointsize>
+         <weight>50</weight>
+         <italic>false</italic>
+         <bold>false</bold>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">border-image: none;
+background-color: rgba(183, 183, 183,160);
+border-top-left-radius: 10px;
+border-bottom-left-radius: 10px;
+
+border-top-right-radius: 16px;
+border-bottom-right-radius: 35px;
+color: rgba(255, 255, 255,255);
+font: 16pt &quot;隶书&quot;;
+
+padding-right: 5px;
+
+padding-left: 5px;</string>
+       </property>
+       <property name="text">
+        <string>欢迎来到LexiLab系统 ！</string>
+       </property>
+      </widget>
      </widget>
     </widget>
     <zorder>frame_2</zorder>

@@ -14,12 +14,15 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(840, 531)
+        MainWindow.resize(1019, 787)
 
         #隐藏边框
         MainWindow.setWindowFlags(QtCore.Qt.FramelessWindowHint)
         MainWindow.setAttribute(QtCore.Qt.WA_TranslucentBackground)
 
+        font = QtGui.QFont()
+        font.setFamily("华文隶书")
+        MainWindow.setFont(font)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.frame = QtWidgets.QFrame(self.centralwidget)
@@ -106,8 +109,7 @@ class Ui_MainWindow(object):
         self.term_input.setAutoFillBackground(False)
         self.term_input.setStyleSheet("border-image: none;\n"
 "background-color: rgba(183, 183, 183,160);\n"
-"border-top-left-radius:20px;\n"
-"border-top-right-radius:20px;\n"
+"border-radius: 10px;\n"
 "color: rgba(255, 255, 255,255);\n"
 "font: 16pt \"Times New Roman\";\n"
 "\n"
@@ -124,8 +126,7 @@ class Ui_MainWindow(object):
         self.explain_input.setGeometry(QtCore.QRect(120, 190, 631, 181))
         self.explain_input.setStyleSheet("border-image: none;\n"
 "background-color: rgba(183, 183, 183,160);\n"
-"border-top-left-radius:20px;\n"
-"border-top-right-radius:20px;\n"
+"border-radius: 10px;\n"
 "color: rgba(255, 255, 255,255);\n"
 "font: 16pt \"Times New Roman\";\n"
 "\n"
@@ -141,6 +142,37 @@ class Ui_MainWindow(object):
         self.commit_btn.setStyleSheet("border-image: url(:/images/resources/images/background.png);")
         self.commit_btn.setText("")
         self.commit_btn.setObjectName("commit_btn")
+        self.frame_5 = QtWidgets.QFrame(self.frame_4)
+        self.frame_5.setGeometry(QtCore.QRect(260, 400, 461, 61))
+        self.frame_5.setStyleSheet("border-image: none;\n"
+"background-color: rgba(183, 183, 183,0);\n"
+"")
+        self.frame_5.setFrameShape(QtWidgets.QFrame.StyledPanel)
+        self.frame_5.setFrameShadow(QtWidgets.QFrame.Raised)
+        self.frame_5.setObjectName("frame_5")
+        self.tips = QtWidgets.QLabel(self.frame_5)
+        self.tips.setGeometry(QtCore.QRect(20, 0, 441, 51))
+        font = QtGui.QFont()
+        font.setFamily("隶书")
+        font.setPointSize(16)
+        font.setBold(False)
+        font.setItalic(False)
+        font.setWeight(50)
+        self.tips.setFont(font)
+        self.tips.setStyleSheet("border-image: none;\n"
+"background-color: rgba(183, 183, 183,160);\n"
+"border-top-left-radius: 10px;\n"
+"border-bottom-left-radius: 10px;\n"
+"\n"
+"border-top-right-radius: 16px;\n"
+"border-bottom-right-radius: 35px;\n"
+"color: rgba(255, 255, 255,255);\n"
+"font: 16pt \"隶书\";\n"
+"\n"
+"padding-right: 5px;\n"
+"\n"
+"padding-left: 5px;")
+        self.tips.setObjectName("tips")
         self.frame_2.raise_()
         self.frame_4.raise_()
         self.frame_3.raise_()
@@ -237,6 +269,7 @@ class Ui_MainWindow(object):
 
         self.explain_input.setVerticalScrollBar(self.explain_input_bar)
 
+
         MainWindow.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(MainWindow)
@@ -250,4 +283,5 @@ class Ui_MainWindow(object):
         self.caption.setText(_translate("MainWindow", "LexiLab"))
         self.term_input.setPlaceholderText(_translate("MainWindow", "Input the term ..."))
         self.explain_input.setPlaceholderText(_translate("MainWindow", "Input the explanation of the term ..."))
+        self.tips.setText(_translate("MainWindow", "欢迎来到LexiLab系统 ！"))
 import resources_rc
