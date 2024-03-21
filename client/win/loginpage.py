@@ -15,11 +15,9 @@ class Ui_LoginWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(821, 510)
-
         #隐藏边框
         MainWindow.setWindowFlags(QtCore.Qt.FramelessWindowHint)
         MainWindow.setAttribute(QtCore.Qt.WA_TranslucentBackground)
-
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.login_pic = QtWidgets.QLabel(self.centralwidget)
@@ -88,7 +86,7 @@ class Ui_LoginWindow(object):
         self.register_btn.setObjectName("register_btn")
         self.login_or_register.addWidget(self.register_btn)
         self.close_btn = QtWidgets.QPushButton(self.centralwidget)
-        self.close_btn.setGeometry(QtCore.QRect(770, 20, 20, 20))
+        self.close_btn.setGeometry(QtCore.QRect(770, 20, 25, 25))
         self.close_btn.setStyleSheet("border-image: url(:/icons/resources/icons/close.png);\n"
 "border: none;")
         self.close_btn.setText("")
@@ -290,11 +288,12 @@ class Ui_LoginWindow(object):
         self.login_page.raise_()
         self.register_page.raise_()
 
-        # 增加阴影
+        # 增加阴影  
         self.login_pic.setGraphicsEffect( QtWidgets.QGraphicsDropShadowEffect(blurRadius=25,xOffset=0,yOffset=0))
         self.login_items.setGraphicsEffect( QtWidgets.QGraphicsDropShadowEffect(blurRadius=25,xOffset=0,yOffset=0))
         self.login_confirm_btn.setGraphicsEffect( QtWidgets.QGraphicsDropShadowEffect(blurRadius=25,xOffset=0,yOffset=0))
         self.register_confirm_btn.setGraphicsEffect( QtWidgets.QGraphicsDropShadowEffect(blurRadius=25,xOffset=0,yOffset=0))
+
         MainWindow.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(MainWindow)

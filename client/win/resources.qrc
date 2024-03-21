@@ -1,10 +1,13 @@
 <RCC>
   <qresource prefix="images">
     <file>resources/images/background.png</file>
-    <file>resources/images/bg.jpg</file>
     <file>resources/images/register.jpg</file>
+    <file>resources/images/home_bg.jpg</file>
+    <file>resources/images/person_bg.png</file>
   </qresource>
   <qresource prefix="icons">
+    <file>resources/icons/home.png</file>
+    <file>resources/icons/query.png</file>
     <file>resources/icons/logout.png</file>
     <file>resources/icons/minimise.png</file>
     <file>resources/icons/person.png</file>

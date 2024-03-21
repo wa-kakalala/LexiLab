@@ -14,12 +14,11 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(1019, 787)
+        MainWindow.resize(841, 585)
 
         #隐藏边框
         MainWindow.setWindowFlags(QtCore.Qt.FramelessWindowHint)
         MainWindow.setAttribute(QtCore.Qt.WA_TranslucentBackground)
-
         font = QtGui.QFont()
         font.setFamily("华文隶书")
         MainWindow.setFont(font)
@@ -54,17 +53,17 @@ class Ui_MainWindow(object):
         self.caption.setFont(font)
         self.caption.setObjectName("caption")
         self.close_btn = QtWidgets.QPushButton(self.frame_2)
-        self.close_btn.setGeometry(QtCore.QRect(790, 10, 20, 20))
+        self.close_btn.setGeometry(QtCore.QRect(790, 10, 25, 25))
         self.close_btn.setStyleSheet("border-image: url(:/icons/resources/icons/close.png);")
         self.close_btn.setText("")
         self.close_btn.setObjectName("close_btn")
         self.logout = QtWidgets.QPushButton(self.frame_2)
-        self.logout.setGeometry(QtCore.QRect(730, 10, 23, 23))
+        self.logout.setGeometry(QtCore.QRect(730, 10, 25, 25))
         self.logout.setStyleSheet("border-image: url(:/icons/resources/icons/logout.png);")
         self.logout.setText("")
         self.logout.setObjectName("logout")
         self.minimise = QtWidgets.QPushButton(self.frame_2)
-        self.minimise.setGeometry(QtCore.QRect(760, 10, 23, 23))
+        self.minimise.setGeometry(QtCore.QRect(760, 10, 25, 25))
         self.minimise.setStyleSheet("border-image: url(:/icons/resources/icons/minimise.png);")
         self.minimise.setText("")
         self.minimise.setObjectName("minimise")
@@ -92,20 +91,37 @@ class Ui_MainWindow(object):
 "background-color: rgba(255, 255, 255,0);")
         self.setting_btn.setText("")
         self.setting_btn.setObjectName("setting_btn")
+        self.home_btn = QtWidgets.QPushButton(self.frame_3)
+        self.home_btn.setGeometry(QtCore.QRect(10, 30, 32, 32))
+        self.home_btn.setStyleSheet("border:none;\n"
+"\n"
+"border-image: url(:/icons/resources/icons/home.png);\n"
+"background-color: rgba(255, 255, 255,0);")
+        self.home_btn.setText("")
+        self.home_btn.setObjectName("home_btn")
+        self.query_btn = QtWidgets.QPushButton(self.frame_3)
+        self.query_btn.setGeometry(QtCore.QRect(10, 80, 32, 32))
+        self.query_btn.setStyleSheet("border:none;\n"
+"border-image:url(:/icons/resources/icons/query.png);\n"
+"background-color: rgba(255, 255, 255,0);")
+        self.query_btn.setText("")
+        self.query_btn.setObjectName("query_btn")
         self.setting_btn.raise_()
         self.person_btn.raise_()
-        self.frame_4 = QtWidgets.QFrame(self.frame)
-        self.frame_4.setGeometry(QtCore.QRect(0, 40, 821, 471))
-        self.frame_4.setStyleSheet("\n"
-"border-image: url(:/images/resources/images/bg.jpg);\n"
+        self.home_btn.raise_()
+        self.query_btn.raise_()
+        self.frame_bg = QtWidgets.QFrame(self.frame)
+        self.frame_bg.setGeometry(QtCore.QRect(0, 40, 821, 471))
+        self.frame_bg.setStyleSheet("\n"
+"border-image: url(:/images/resources/images/home_bg.jpg);\n"
 "border-bottom-right-radius :20px;\n"
 "border-bottom-left-radius :20px;\n"
 "")
-        self.frame_4.setFrameShape(QtWidgets.QFrame.StyledPanel)
-        self.frame_4.setFrameShadow(QtWidgets.QFrame.Raised)
-        self.frame_4.setObjectName("frame_4")
-        self.term_input = QtWidgets.QTextEdit(self.frame_4)
-        self.term_input.setGeometry(QtCore.QRect(120, 40, 631, 121))
+        self.frame_bg.setFrameShape(QtWidgets.QFrame.StyledPanel)
+        self.frame_bg.setFrameShadow(QtWidgets.QFrame.Raised)
+        self.frame_bg.setObjectName("frame_bg")
+        self.term_input = QtWidgets.QTextEdit(self.frame_bg)
+        self.term_input.setGeometry(QtCore.QRect(120, 20, 631, 121))
         self.term_input.setAutoFillBackground(False)
         self.term_input.setStyleSheet("border-image: none;\n"
 "background-color: rgba(183, 183, 183,160);\n"
@@ -122,8 +138,8 @@ class Ui_MainWindow(object):
         self.term_input.setFrameShadow(QtWidgets.QFrame.Plain)
         self.term_input.setAcceptRichText(False)
         self.term_input.setObjectName("term_input")
-        self.explain_input = QtWidgets.QTextEdit(self.frame_4)
-        self.explain_input.setGeometry(QtCore.QRect(120, 190, 631, 181))
+        self.explain_input = QtWidgets.QTextEdit(self.frame_bg)
+        self.explain_input.setGeometry(QtCore.QRect(120, 180, 631, 181))
         self.explain_input.setStyleSheet("border-image: none;\n"
 "background-color: rgba(183, 183, 183,160);\n"
 "border-radius: 10px;\n"
@@ -137,12 +153,12 @@ class Ui_MainWindow(object):
         self.explain_input.setTabChangesFocus(True)
         self.explain_input.setAcceptRichText(False)
         self.explain_input.setObjectName("explain_input")
-        self.commit_btn = QtWidgets.QPushButton(self.frame_4)
+        self.commit_btn = QtWidgets.QPushButton(self.frame_bg)
         self.commit_btn.setGeometry(QtCore.QRect(720, 340, 101, 131))
         self.commit_btn.setStyleSheet("border-image: url(:/images/resources/images/background.png);")
         self.commit_btn.setText("")
         self.commit_btn.setObjectName("commit_btn")
-        self.frame_5 = QtWidgets.QFrame(self.frame_4)
+        self.frame_5 = QtWidgets.QFrame(self.frame_bg)
         self.frame_5.setGeometry(QtCore.QRect(260, 400, 461, 61))
         self.frame_5.setStyleSheet("border-image: none;\n"
 "background-color: rgba(183, 183, 183,0);\n"
@@ -173,8 +189,80 @@ class Ui_MainWindow(object):
 "\n"
 "padding-left: 5px;")
         self.tips.setObjectName("tips")
+        self.page_person = QtWidgets.QFrame(self.frame_bg)
+        self.page_person.setGeometry(QtCore.QRect(290, 70, 321, 271))
+        self.page_person.setStyleSheet("border-image:none;")
+        self.page_person.setFrameShape(QtWidgets.QFrame.StyledPanel)
+        self.page_person.setFrameShadow(QtWidgets.QFrame.Raised)
+        self.page_person.setObjectName("page_person")
+        self.show_record_num = QtWidgets.QLabel(self.page_person)
+        self.show_record_num.setGeometry(QtCore.QRect(20, 100, 111, 41))
+        self.show_record_num.setStyleSheet("border-image: none;\n"
+"background-color: rgba(183, 183, 183,160);\n"
+"border-radius: 10px;\n"
+"\n"
+"color: rgba(255, 255, 255,255);\n"
+"font: 16pt \"Times New Roman\";\n"
+"\n"
+"padding-top: 5px;\n"
+"padding-right: 5px;\n"
+"padding-bottom: 5px;\n"
+"padding-left: 5px;")
+        self.show_record_num.setObjectName("show_record_num")
+        self.show_username = QtWidgets.QLabel(self.page_person)
+        self.show_username.setGeometry(QtCore.QRect(20, 10, 251, 41))
+        self.show_username.setStyleSheet("border-image: none;\n"
+"background-color: rgba(183, 183, 183,160);\n"
+"border-radius: 10px;\n"
+"\n"
+"color: rgba(255, 255, 255,255);\n"
+"font: 16pt \"Times New Roman\";\n"
+"\n"
+"padding-top: 5px;\n"
+"padding-right: 5px;\n"
+"padding-bottom: 5px;\n"
+"padding-left: 5px;")
+        self.show_username.setObjectName("show_username")
+        self.show_email = QtWidgets.QLabel(self.page_person)
+        self.show_email.setGeometry(QtCore.QRect(20, 60, 171, 31))
+        self.show_email.setStyleSheet("border-image: none;\n"
+"background-color: rgba(183, 183, 183,160);\n"
+"border-radius: 10px;\n"
+"\n"
+"color: rgba(255, 255, 255,255);\n"
+"font: 12pt \"Times New Roman\";\n"
+"\n"
+"padding-top: 5px;\n"
+"padding-right: 5px;\n"
+"padding-bottom: 5px;\n"
+"padding-left: 5px;")
+        self.show_email.setObjectName("show_email")
+        self.show_record5 = QtWidgets.QLCDNumber(self.page_person)
+        self.show_record5.setGeometry(QtCore.QRect(0, 150, 101, 71))
+        self.show_record5.setStyleSheet("border:none;")
+        self.show_record5.setObjectName("show_record5")
+        self.show_record4 = QtWidgets.QLCDNumber(self.page_person)
+        self.show_record4.setGeometry(QtCore.QRect(40, 150, 101, 71))
+        self.show_record4.setStyleSheet("border:none;\n"
+"")
+        self.show_record4.setObjectName("show_record4")
+        self.show_record1 = QtWidgets.QLCDNumber(self.page_person)
+        self.show_record1.setGeometry(QtCore.QRect(160, 150, 101, 71))
+        self.show_record1.setStyleSheet("border:none;\n"
+"")
+        self.show_record1.setObjectName("show_record1")
+        self.show_record3 = QtWidgets.QLCDNumber(self.page_person)
+        self.show_record3.setGeometry(QtCore.QRect(80, 150, 101, 71))
+        self.show_record3.setStyleSheet("border:none;\n"
+"")
+        self.show_record3.setObjectName("show_record3")
+        self.show_record2 = QtWidgets.QLCDNumber(self.page_person)
+        self.show_record2.setGeometry(QtCore.QRect(120, 150, 101, 71))
+        self.show_record2.setStyleSheet("border:none;\n"
+"")
+        self.show_record2.setObjectName("show_record2")
+        self.frame_bg.raise_()
         self.frame_2.raise_()
-        self.frame_4.raise_()
         self.frame_3.raise_()
 
         self.commit_btn.setGraphicsEffect( QtWidgets.QGraphicsDropShadowEffect(blurRadius=25,xOffset=0,yOffset=0))
@@ -270,6 +358,7 @@ class Ui_MainWindow(object):
         self.explain_input.setVerticalScrollBar(self.explain_input_bar)
 
 
+
         MainWindow.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(MainWindow)
@@ -284,4 +373,7 @@ class Ui_MainWindow(object):
         self.term_input.setPlaceholderText(_translate("MainWindow", "Input the term ..."))
         self.explain_input.setPlaceholderText(_translate("MainWindow", "Input the explanation of the term ..."))
         self.tips.setText(_translate("MainWindow", "欢迎来到LexiLab系统 ！"))
+        self.show_record_num.setText(_translate("MainWindow", "记录总数"))
+        self.show_username.setText(_translate("MainWindow", "TextLabel"))
+        self.show_email.setText(_translate("MainWindow", "TextLabel"))
 import resources_rc

@@ -1,3 +1,8 @@
+pyuic5 -o loginpage.py login.ui
+pyuic5 -o mainpage.py main.ui   
+
+pyrcc5 -o resources_rc.py resources.qrc
+
 #隐藏边框
 MainWindow.setWindowFlags(QtCore.Qt.FramelessWindowHint)
 MainWindow.setAttribute(QtCore.Qt.WA_TranslucentBackground)

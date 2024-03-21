@@ -156,7 +156,7 @@ class LoginWindow (QMainWindow):
 
                 self.lexilab_db = SQLClass('./db/%s_lexilab.db'%(self.ui.username_input.text()),'lexilab')
                 global_lexilab_db = self.lexilab_db
-                self.win = MainWindow(self.userinfo_db,self.lexilab_db)
+                self.win = MainWindow(self.userinfo_db,self.lexilab_db,self.ui.username_input.text())
             else:
                 self.ui.login_info.setText("UserName is not match with PassWord ! ")
 
@@ -167,8 +167,11 @@ class MainWindow (QMainWindow):
     _isTracking = False
     _tips = None
     _tipsIdx = 0
-    def __init__(self,userinfo_db,lexilab_db):
+
+    def __init__(self,userinfo_db,lexilab_db,username):
         super().__init__()
+
+        self.username = username
 
         self.userinfo_db = userinfo_db
         self.lexilab_db  = lexilab_db
@@ -178,6 +181,12 @@ class MainWindow (QMainWindow):
 
         self.ui.logout.clicked.connect(self.logout_btn_proc)
         self.ui.commit_btn.clicked.connect(self.commit_btn_proc)
+
+        self.ui.home_btn.clicked.connect(self.show_home_page)
+        self.ui.person_btn.clicked.connect(self.show_person_page)
+        self.show_home_page()
+
+        
         self.show()
 
         self.show_tips("欢迎来到LexiLab系统, 请开始记录内容吧!")
@@ -223,6 +232,37 @@ class MainWindow (QMainWindow):
         self.ui.commit_btn.setEnabled(False)
         timer = Timer(0.1, self.timer_callback)
         timer.start()
+
+    def show_home_page(self):
+        self.show_person(False)
+        self.show_home(True)
+
+    def show_person_page(self):
+        self.show_home(False)
+        self.show_person(True)
+
+    def show_home(self,state):
+        self.ui.term_input.setEnabled(state)
+        self.ui.term_input.show() if state else self.ui.term_input.hide()
+
+        self.ui.explain_input.setEnabled(state)
+        self.ui.explain_input.show() if state else self.ui.explain_input.hide()
+
+        self.ui.tips.setEnabled(state)
+        self.ui.tips.show()if state else self.ui.tips.hide()
+
+        self.ui.commit_btn.setEnabled(state)
+        self.ui.commit_btn.show() if state else self.ui.commit_btn.hide()
+
+
+    def show_person(self,state):
+
+        self.ui.show_username.setText(self.username)
+        userinfo = self.userinfo_db.find_user_by_username(self.username)
+        self.ui.show_email.setText(userinfo[0][2])
+        self.ui.page_person.setEnabled(state)
+        self.ui.page_person.show() if state else self.ui.page_person.hide()
+
 
     def commit_btn_proc(self):
         if self.ui.term_input.toPlainText() == '':
