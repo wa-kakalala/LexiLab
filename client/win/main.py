@@ -48,14 +48,16 @@ class LoginWindow (QMainWindow):
     def select_login_page_proc(self):
         self.ui.login_info.setText("")
         self.ui.register_info.setText("")
-        self.ui.register_page.hide()
-        self.ui.login_page.show()
+        # self.ui.register_page.hide()
+
+        self.ui.stackedWidget.setCurrentIndex(1)
+        # self.ui.login_page.show()
 
     def select_register_page_proc(self):
         self.ui.login_info.setText("")
         self.ui.register_info.setText("")
-        self.ui.login_page.hide()
-        self.ui.register_page.show()
+        # self.ui.login_page.hide()
+        self.ui.stackedWidget.setCurrentIndex(0)
 
     # 注册
     def register_confirm_proc(self):
@@ -219,7 +221,7 @@ class MainWindow (QMainWindow):
         if self._tipsIdx < len(self._tips):
             self.ui.tips.setText(self._tips[0:self._tipsIdx+1])
             self._tipsIdx += 1
-            timer = Timer(0.2, self.timer_callback)
+            timer = Timer(0.1, self.timer_callback)
             timer.start()
         else:
             self._tips = ''
@@ -282,10 +284,11 @@ class MainWindow (QMainWindow):
                     datetime.datetime.now().strftime('%H%M')
                 ]
             )
+            self.show_tips("恭喜你，添加记录成功！")
         else:
             print(lexicon)
         
-        print("commit")
+        # print("commit")
 
 
 if __name__ == "__main__":
@@ -296,7 +299,7 @@ if __name__ == "__main__":
     exit_code = app.exec_()
     
     userinfo_db.exit()
-    if not global_lexilab_db:
+    if global_lexilab_db:
         global_lexilab_db.exit()
 
     sys.exit(exit_code)

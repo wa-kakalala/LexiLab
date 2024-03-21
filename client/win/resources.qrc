@@ -1,9 +1,18 @@
 <RCC>
   <qresource prefix="images">
+    <file>resources/images/number0.gif</file>
+    <file>resources/images/number1.gif</file>
+    <file>resources/images/number2.gif</file>
+    <file>resources/images/number3.gif</file>
+    <file>resources/images/number4.gif</file>
+    <file>resources/images/number5.gif</file>
+    <file>resources/images/number6.gif</file>
+    <file>resources/images/number7.gif</file>
+    <file>resources/images/number8.gif</file>
+    <file>resources/images/number9.gif</file>
     <file>resources/images/background.png</file>
     <file>resources/images/register.jpg</file>
     <file>resources/images/home_bg.jpg</file>
-    <file>resources/images/person_bg.png</file>
   </qresource>
   <qresource prefix="icons">
     <file>resources/icons/home.png</file>
