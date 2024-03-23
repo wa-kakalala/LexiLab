@@ -12,6 +12,7 @@ class SQLClass:
         self.conn = sqlite3.connect(self.dbpath)
         self.c = self.conn.cursor()
 
+
     def insert(self,fileds=[],values=[]):
         key = ",".join(fileds)
         value =""
@@ -38,11 +39,19 @@ class SQLClass:
         userinfo = self.c.fetchall()
         # print(userinfo)
         return userinfo
+    def count_item_num(self):
+        self.c = self.conn.cursor()
+        item = "SELECT COUNT(*) FROM " + self.tablename
+        # print(item)
+        self.c.execute(item)
+        count = self.c.fetchall()
+        # print(count)
+        return count
     
     def find_lexi_by_term(self,termname):
         self.c = self.conn.cursor()
         item = "SELECT * FROM " + self.tablename + " WHERE term = " + "'" + termname + "'"
-        print(item)
+        # print(item)
         self.c.execute(item)
         lexicon = self.c.fetchall()
         # print(lexicon)

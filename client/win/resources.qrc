@@ -17,6 +17,7 @@
   <qresource prefix="icons">
     <file>resources/icons/home.png</file>
     <file>resources/icons/query.png</file>
+    <file>resources/icons/query_btn.png</file>
     <file>resources/icons/logout.png</file>
     <file>resources/icons/minimise.png</file>
     <file>resources/icons/person.png</file>

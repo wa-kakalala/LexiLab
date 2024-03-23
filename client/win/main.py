@@ -8,7 +8,11 @@ import sys
 import hashlib
 import re
 import datetime
-from threading import Timer
+from threading import Timer,Thread
+import resources_rc
+from PyQt5.QtGui import QImage, QPixmap
+from PyQt5.QtWidgets import QGraphicsPixmapItem, QGraphicsScene
+import os
 
 global_username = ''
 global_password = ''
@@ -154,11 +158,14 @@ class LoginWindow (QMainWindow):
                 
                 global_remember = self.ui.remember_box.isChecked()
                 self.userinfo_db.update_by_username(self.ui.username_input.text(),["last"],[datetime.datetime.now().strftime('%y%m%d%H%M')])
-                self.close()
-
+                if not os.path.exists('./db/%s_lexilab.db'%(self.ui.username_input.text())):
+                     create_lexilab_db(self.ui.username_input.text())
+            
                 self.lexilab_db = SQLClass('./db/%s_lexilab.db'%(self.ui.username_input.text()),'lexilab')
                 global_lexilab_db = self.lexilab_db
+                self.close()
                 self.win = MainWindow(self.userinfo_db,self.lexilab_db,self.ui.username_input.text())
+                
             else:
                 self.ui.login_info.setText("UserName is not match with PassWord ! ")
 
@@ -169,6 +176,7 @@ class MainWindow (QMainWindow):
     _isTracking = False
     _tips = None
     _tipsIdx = 0
+    _qgrapview_list = []
 
     def __init__(self,userinfo_db,lexilab_db,username):
         super().__init__()
@@ -181,17 +189,25 @@ class MainWindow (QMainWindow):
         self.ui = mainpage.Ui_MainWindow()
         self.ui.setupUi(self)
 
+        self._qgrapview_list = [self.ui.shownum_0,self.ui.shownum_1,self.ui.shownum_2,self.ui.shownum_3,self.ui.shownum_4,self.ui.shownum_5]
+
         self.ui.logout.clicked.connect(self.logout_btn_proc)
         self.ui.commit_btn.clicked.connect(self.commit_btn_proc)
 
         self.ui.home_btn.clicked.connect(self.show_home_page)
+        self.ui.query_btn.clicked.connect(self.show_query_page)
         self.ui.person_btn.clicked.connect(self.show_person_page)
+        # self.ui.setting_btn.clicked.connect(self.show_setting_page)
+
+        self.ui.query_input.textChanged.connect(self.query_input_changed_proc)
+
+        self.ui.search_btn.clicked.connect(self.search_btn_proc)
         self.show_home_page()
 
-        
+        self.show_tips("欢迎来到LexiLab系统, 请开始记录内容吧!")
         self.show()
 
-        self.show_tips("欢迎来到LexiLab系统, 请开始记录内容吧!")
+        
 
     ############### 重写移动事件 Begin ################
     def mouseMoveEvent(self, e: QMouseEvent):  
@@ -236,49 +252,63 @@ class MainWindow (QMainWindow):
         timer.start()
 
     def show_home_page(self):
-        self.show_person(False)
-        self.show_home(True)
+        self.ui.stackedWidget.setCurrentIndex(0)
+    
+    def show_query_page(self):
+        self.ui.stackedWidget.setCurrentIndex(1)
 
     def show_person_page(self):
-        self.show_home(False)
-        self.show_person(True)
-
-    def show_home(self,state):
-        self.ui.term_input.setEnabled(state)
-        self.ui.term_input.show() if state else self.ui.term_input.hide()
-
-        self.ui.explain_input.setEnabled(state)
-        self.ui.explain_input.show() if state else self.ui.explain_input.hide()
-
-        self.ui.tips.setEnabled(state)
-        self.ui.tips.show()if state else self.ui.tips.hide()
-
-        self.ui.commit_btn.setEnabled(state)
-        self.ui.commit_btn.show() if state else self.ui.commit_btn.hide()
-
-
-    def show_person(self,state):
-
         self.ui.show_username.setText(self.username)
         userinfo = self.userinfo_db.find_user_by_username(self.username)
         self.ui.show_email.setText(userinfo[0][2])
-        self.ui.page_person.setEnabled(state)
-        self.ui.page_person.show() if state else self.ui.page_person.hide()
 
+
+        count = self.lexilab_db.count_item_num()[0][0]
+        count_str = "{:06}".format(count)
+        # https://blog.csdn.net/springleaf2/article/details/122329284
+        
+        for idx in range(len(self._qgrapview_list)):
+            sence = QGraphicsScene()
+            item_idx = int(count_str[idx])
+            frame = QImage(":/images/resources/images/number" + str(item_idx) + ".gif")
+            item = QGraphicsPixmapItem(QPixmap.fromImage(frame))
+            sence.addItem(item)
+            self._qgrapview_list[idx].setScene(sence)
+
+        self.ui.stackedWidget.setCurrentIndex(2)
+
+    def show_setting_page(self):
+        self.ui.stackedWidget.setCurrentIndex(3)
+
+   
+    def search_btn_proc(self):
+        search_item = self.ui.query_input.toPlainText().strip()
+        if( search_item == ""):
+            return 
+        
+        item = self.lexilab_db.find_lexi_by_term(search_item)
+
+        if item :
+            self.ui.query_output.setPlainText(item[0][1])
+        else :
+            self.ui.query_output.setPlainText("暂时未添加该内容")
+        pass
+    def query_input_changed_proc(self):
+        self.ui.query_output.setPlainText("")
 
     def commit_btn_proc(self):
-        if self.ui.term_input.toPlainText() == '':
+        if self.ui.term_input.toPlainText().strip() == '':
             self.show_tips("输入术语栏不可以为空哦!")
             return 
         elif self.ui.explain_input.toPlainText() == '':
             self.show_tips("输入释义栏不可以为空哦!")
             return 
-        lexicon = self.lexilab_db.find_lexi_by_term(self.ui.term_input.toPlainText())
+        lexicon = self.lexilab_db.find_lexi_by_term(self.ui.term_input.toPlainText().strip())
         if not lexicon:
             self.lexilab_db.insert(
                 ["term","explain","date","time"], 
                 [ 
-                    self.ui.term_input.toPlainText(), 
+                    self.ui.term_input.toPlainText().strip(), 
                     self.ui.explain_input.toPlainText(),
                     datetime.datetime.now().strftime('%y%m%d'), 
                     datetime.datetime.now().strftime('%H%M')
@@ -287,17 +317,19 @@ class MainWindow (QMainWindow):
             self.show_tips("恭喜你，添加记录成功！")
         else:
             print(lexicon)
-        
-        # print("commit")
 
+    def setProperty(self,userinfo_db,lexilab_db,username):
+        self.userinfo_db = userinfo_db
+        self.lexilab_db = lexilab_db
+        self.username = username
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
     userinfo_db = SQLClass('./db/userinfo.db','userinfo')
     # userinfo_db.insert(["username","password","email","date"],["yyrwkk","81dc9bdb52d04dc20036dbd8313ed055","2962056732@qq.com","2403141253"])
     win = LoginWindow(userinfo_db,None)
+
     exit_code = app.exec_()
-    
     userinfo_db.exit()
     if global_lexilab_db:
         global_lexilab_db.exit()
