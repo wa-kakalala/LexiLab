@@ -56,6 +56,16 @@ class SQLClass:
         lexicon = self.c.fetchall()
         # print(lexicon)
         return lexicon
+    def update_by_term(self,termname,fileds=[],values=[]):
+        update_content = ' '
+        for idx in range(len(fileds)-1):
+            update_content += fileds[idx] + '=' +'"' + values[idx] + '",'
+        update_content += fileds[-1] + '=' +'"' + values[-1] + '" '
+
+        item = "UPDATE " + self.tablename + " set " + update_content + " WHERE term = " + "'" + termname + "'"
+        # print(item)
+        self.c.execute(item)
+        self.conn.commit()
 
     def exit(self):
         self.c.close()

@@ -1,9 +1,10 @@
-from PyQt5.QtWidgets import QApplication,QMainWindow,QWidget
+from PyQt5.QtWidgets import QApplication,QMainWindow,QDialog,QDialogButtonBox
 from PyQt5.QtCore import Qt,QPoint,pyqtSignal
 from PyQt5 import QtCore
 from PyQt5.QtGui  import QMouseEvent,QIcon
 import loginpage 
 import mainpage
+import dialogpage
 from sqlproc import SQLClass,create_lexilab_db
 import sys
 import hashlib
@@ -172,6 +173,26 @@ class LoginWindow (QMainWindow):
             else:
                 self.ui.login_info.setText("UserName is not match with PassWord ! ")
 
+class DialogWindow(QDialog):
+    def __init__(self,parent):
+        super(DialogWindow,self).__init__(parent)
+        self.ui = dialogpage.Ui_Dialog()
+        self.ui.setupUi(self)
+
+        self.ui.pushButton.clicked.connect(self.save_btn_proc)
+        self.ui.pushButton_2.clicked.connect(self.discard_btn_proc)
+        
+        self.show()
+
+    def save_btn_proc(self):
+        self.done(1)
+
+    def discard_btn_proc(self):
+        self.done(2)
+    
+    
+
+
 
 class MainWindow (QMainWindow):
     _startPos = None
@@ -200,6 +221,8 @@ class MainWindow (QMainWindow):
         self.ui.home_btn.clicked.connect(self.show_home_page)
         self.ui.query_btn.clicked.connect(self.show_query_page)
         self.ui.person_btn.clicked.connect(self.show_person_page)
+
+        self.ui.term_input.textChanged.connect(self.input_changed)
         # self.ui.setting_btn.clicked.connect(self.show_setting_page)
 
         self.ui.query_input.textChanged.connect(self.query_input_changed_proc)
@@ -228,6 +251,9 @@ class MainWindow (QMainWindow):
             self._startPos = None
             self._endPos = None
     ############### 重写移动事件  End  ################
+            
+    def input_changed(self):
+        self.show_tips(" ")
             
     def logout_btn_proc(self):
         global global_lexilab_db
@@ -319,7 +345,20 @@ class MainWindow (QMainWindow):
             )
             self.show_tips("恭喜你，添加记录成功！")
         else:
-            print(lexicon)
+            dialog = DialogWindow(self)
+            res = dialog.exec_()
+            if res == 1:
+                self.lexilab_db.update_by_term(
+                    self.ui.term_input.toPlainText().strip(),
+                    ["term","explain","date","time"], 
+                    [ 
+                    self.ui.term_input.toPlainText().strip(), 
+                    self.ui.explain_input.toPlainText(),
+                    datetime.datetime.now().strftime('%y%m%d'), 
+                    datetime.datetime.now().strftime('%H%M')
+                    ]
+                )
+                self.show_tips("恭喜你，更新记录成功！")
 
     def setProperty(self,userinfo_db,lexilab_db,username):
         self.userinfo_db = userinfo_db
