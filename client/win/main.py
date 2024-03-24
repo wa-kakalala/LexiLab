@@ -1,5 +1,6 @@
-from PyQt5.QtWidgets import QApplication,QMainWindow
-from PyQt5.QtCore import Qt,QPoint
+from PyQt5.QtWidgets import QApplication,QMainWindow,QWidget
+from PyQt5.QtCore import Qt,QPoint,pyqtSignal
+from PyQt5 import QtCore
 from PyQt5.QtGui  import QMouseEvent,QIcon
 import loginpage 
 import mainpage
@@ -8,7 +9,7 @@ import sys
 import hashlib
 import re
 import datetime
-from threading import Timer,Thread
+from threading import Timer
 import resources_rc
 from PyQt5.QtGui import QImage, QPixmap
 from PyQt5.QtWidgets import QGraphicsPixmapItem, QGraphicsScene
@@ -18,6 +19,7 @@ global_username = ''
 global_password = ''
 global_remember = False
 global_lexilab_db = None
+global_mainwindow = None
 
 class LoginWindow (QMainWindow):
     _startPos = None
@@ -50,6 +52,7 @@ class LoginWindow (QMainWindow):
         self.show()
 
     def select_login_page_proc(self):
+       
         self.ui.login_info.setText("")
         self.ui.register_info.setText("")
         # self.ui.register_page.hide()
