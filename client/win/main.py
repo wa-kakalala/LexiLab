@@ -1,7 +1,7 @@
-from PyQt5.QtWidgets import QApplication,QMainWindow,QDialog,QDialogButtonBox
-from PyQt5.QtCore import Qt,QPoint,pyqtSignal
+from PyQt5.QtWidgets import QApplication,QMainWindow,QDialog
+from PyQt5.QtCore import Qt,QPoint
 from PyQt5 import QtCore
-from PyQt5.QtGui  import QMouseEvent,QIcon
+from PyQt5.QtGui  import QMouseEvent
 import loginpage 
 import mainpage
 import dialogpage
@@ -11,6 +11,7 @@ import hashlib
 import re
 import datetime
 from threading import Timer
+import network
 import resources_rc
 from PyQt5.QtGui import QImage, QPixmap
 from PyQt5.QtWidgets import QGraphicsPixmapItem, QGraphicsScene
@@ -370,10 +371,14 @@ if __name__ == "__main__":
     userinfo_db = SQLClass('./db/userinfo.db','userinfo')
     # userinfo_db.insert(["username","password","email","date"],["yyrwkk","81dc9bdb52d04dc20036dbd8313ed055","2962056732@qq.com","2403141253"])
     win = LoginWindow(userinfo_db,None)
+    netThread = network.NetworkClass()
+    netThread.start()
 
     exit_code = app.exec_()
     userinfo_db.exit()
     if global_lexilab_db:
         global_lexilab_db.exit()
+
+    netThread.exit()
 
     sys.exit(exit_code)
