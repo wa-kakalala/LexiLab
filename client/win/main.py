@@ -371,7 +371,7 @@ if __name__ == "__main__":
     userinfo_db = SQLClass('./db/userinfo.db','userinfo')
     # userinfo_db.insert(["username","password","email","date"],["yyrwkk","81dc9bdb52d04dc20036dbd8313ed055","2962056732@qq.com","2403141253"])
     win = LoginWindow(userinfo_db,None)
-    netThread = network.NetworkClass()
+    netThread = network.NetworkClass(33333,"127.0.0.1",44444)
     netThread.start()
 
     exit_code = app.exec_()
