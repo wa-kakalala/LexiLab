@@ -16,12 +16,16 @@ import resources_rc
 from PyQt5.QtGui import QImage, QPixmap
 from PyQt5.QtWidgets import QGraphicsPixmapItem, QGraphicsScene
 import os
+import json
+
 
 global_username = ''
 global_password = ''
 global_remember = False
 global_lexilab_db = None
 global_mainwindow = None
+
+netThread = None
 
 class LoginWindow (QMainWindow):
     _startPos = None
@@ -42,6 +46,8 @@ class LoginWindow (QMainWindow):
         self.ui.login_confirm_btn.clicked.connect(self.login_confirm_proc)
 
         self.ui.register_confirm_btn.clicked.connect(self.register_confirm_proc)
+
+        self.ui.register_username_input.textChanged.connect(lambda:self.ui.register_info.setText(""))
 
         self.ui.username_input.setText(global_username)
         self.ui.password_input.setText(global_password)
@@ -112,6 +118,21 @@ class LoginWindow (QMainWindow):
                 self.ui.register_email_input.text(), 
                 datetime.datetime.now().strftime('%y%m%d%H%M')
             ]
+        )
+
+        task_content = json.dumps({
+            "type":netThread.protocol.TYPE_ADD_USER_REQUEST,
+            "username": self.ui.register_username_input.text(),
+            "password": md5pwd,
+            "email": self.ui.register_email_input.text(), 
+            "date": datetime.datetime.now().strftime('%y%m%d%H%M')
+        },ensure_ascii=False)
+
+        netThread.add_task(
+            {
+                "type" : netThread.protocol.TYPE_ADD_USER_REQUEST,
+                "content": task_content
+            }
         )
         self.ui.register_info.setText("Congratulations, you have successfully registered ! ")
 
@@ -191,9 +212,6 @@ class DialogWindow(QDialog):
     def discard_btn_proc(self):
         self.done(2)
     
-    
-
-
 
 class MainWindow (QMainWindow):
     _startPos = None
@@ -233,8 +251,6 @@ class MainWindow (QMainWindow):
 
         self.show_tips("欢迎来到LexiLab系统, 请开始记录内容吧!")
         self.show()
-
-        
 
     ############### 重写移动事件 Begin ################
     def mouseMoveEvent(self, e: QMouseEvent):  
@@ -371,7 +387,7 @@ if __name__ == "__main__":
     userinfo_db = SQLClass('./db/userinfo.db','userinfo')
     # userinfo_db.insert(["username","password","email","date"],["yyrwkk","81dc9bdb52d04dc20036dbd8313ed055","2962056732@qq.com","2403141253"])
     win = LoginWindow(userinfo_db,None)
-    netThread = network.NetworkClass(33333,"127.0.0.1",44444)
+    netThread = network.NetworkClass("47.117.65.167",7100)
     netThread.start()
 
     exit_code = app.exec_()

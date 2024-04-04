@@ -5,8 +5,9 @@ import socket
 from queue import Queue
 
 class Protocol:
-    TYPE_HELLO = 0
-
+    TYPE_HELLO            = 0
+    TYPE_ADD_USER_REQUEST = 1
+    TYPE_RESPONSE         = 4
     def __init__(self):
         pass
 
@@ -16,17 +17,23 @@ class Protocol:
         }
 
         return json.dumps(msg,ensure_ascii=False)
-
-
+    
+    def add_user_response_msg(self,username,status):
+        msg = {
+            "type": self.TYPE_RESPONSE,
+            "username": username,
+            "status": status
+        }
+        return json.dumps(msg,ensure_ascii=False)
 
 class NetworkClass(QThread):
-    def __init__(self,port,serverip,serverport,timeout = 2):
+    def __init__(self,serverip,serverport,timeout = 2):
         super(NetworkClass,self).__init__()
 
         self.working = True
 
         self.udpsock    = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-        self.port       = port
+        # self.port       = port
         self.serverip   = serverip
         self.serverport = serverport
         self.buflen     = 4096
@@ -42,16 +49,35 @@ class NetworkClass(QThread):
     
     def add_task(self,task):
         self.taskQueue.put(task)
+        # task 基本格式
+        # {
+        #   "type": xxx ,
+        #   "content": xxx
+        # }
+
+    def do_task(self):
+        task = self.taskQueue.get()
+        if task["type"] == self.protocol.TYPE_ADD_USER_REQUEST :
+            if not self.add_user_request(task["content"]):
+                # 执行任务失败了
+                self.taskQueue.put(task)
+            # else:
+                # print("send add user request successfully")
+
 
     def run(self):
         while( self.working == True ):
             if self.working:
                 if self.say_hello():
                     if not self.taskQueue.empty():
-                        print("有任务需要执行")
+                        # print("有任务需要执行")
+                        self.do_task()
                     else:
-                        print("没有任务执行")
-                        self.sleep(3)
+                        # print("没有任务执行")
+                        self.sleep(60)
+                        
+                else:
+                    self.sleep(2*60)
             else:
                 if not self.taskQueue.empty():
                     # 需要保存任务
@@ -64,6 +90,20 @@ class NetworkClass(QThread):
             try:
                 data, server = self.udpsock.recvfrom(self.buflen)
                 if json.loads(data.decode())['type'] == self.protocol.TYPE_HELLO and server[0] == self.serverip:
+                    return True
+            except:
+                count += 1
+        return False
+    
+    def add_user_request(self,content:str):
+        raw_data = json.loads(content)
+        self.udpsock.sendto(content.encode('utf-8'), (self.serverip, self.serverport))
+        count = 0
+        while( count <3 ):
+            try:
+                data, server = self.udpsock.recvfrom(self.buflen)
+                res_data = json.loads(data.decode())
+                if res_data['type'] == self.protocol.TYPE_RESPONSE and res_data["status"] == 0 and res_data["username"] == raw_data["username"]:
                     return True
             except:
                 count += 1
